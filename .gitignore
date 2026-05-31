@@ -1,0 +1,67 @@
+# ==========================================================
+# DoeFacil — dApp Ethereum (Hardhat/Solidity + React/Ethers.js)
+# ==========================================================
+
+# ----- SEGREDOS (NUNCA COMITAR) ---------------------------
+# Chaves privadas, mnemônicos e API keys (Alchemy/Infura/Etherscan)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+mnemonic.txt
+
+# ----- Node.js --------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm/
+.yarn/
+
+# ----- Hardhat / Solidity ---------------------------------
+artifacts/
+cache/
+typechain/
+typechain-types/
+coverage/
+coverage.json
+.coverage_artifacts/
+.coverage_cache/
+.coverage_contracts/
+deployments/        # remova esta linha se quiser versionar endereços de deploy
+gas-report.txt
+
+# ----- Front-end React ------------------------------------
+build/
+dist/
+.next/
+out/
+# Lock files ficam versionados; descomente se a equipe preferir o contrário
+# package-lock.json
+# yarn.lock
+
+# ----- Testes / Ferramentas -------------------------------
+.eslintcache
+.prettiercache
+
+# ----- Sistema operacional --------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Editores / IDEs ------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ----- Logs e temporários ---------------------------------
+logs/
+*.log
+tmp/
+temp/

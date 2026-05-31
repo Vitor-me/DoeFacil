@@ -11,7 +11,7 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 - [ ] Configurar ESLint/Prettier e definir a estrutura de pastas do projeto.
 
 **Entrega:** Ambiente local de desenvolvimento funcionando.
-
+    
 ---
 
 ### Sprint 2 — Lógica Central do Contrato
