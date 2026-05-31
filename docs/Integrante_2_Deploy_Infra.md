@@ -6,11 +6,11 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ---
 
 ### Sprint 1 — Fundação e Setup
-- [ ] Inicializar o projeto Hardhat.
-- [ ] Configurar dependências (Hardhat, Ethers, OpenZeppelin, dotenv).
-- [ ] Configurar ESLint/Prettier e definir a estrutura de pastas do projeto.
+- [x] Inicializar o projeto Hardhat. _(Hardhat 2.28 em `/contracts`)_
+- [x] Configurar dependências (Hardhat, Ethers, OpenZeppelin, dotenv). _(via hardhat-toolbox + OpenZeppelin 5)_
+- [x] Configurar ESLint/Prettier e definir a estrutura de pastas do projeto. _(ESLint + Prettier + solhint; monorepo `/contracts` e `/frontend`)_
 
-**Entrega:** Ambiente local de desenvolvimento funcionando.
+**Entrega:** ✅ Ambiente local de desenvolvimento funcionando. `npx hardhat compile` rodando, `.gitignore` e `.env.example` prontos.
     
 ---
 
@@ -25,7 +25,7 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 
 ### Sprint 3 — Deploy na Testnet
 - [ ] Criar conta e API key no Alchemy ou Infura.
-- [ ] Configurar a rede Sepolia no `hardhat.config`.
+- [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan já configurados; falta só preencher o `.env`)_
 - [ ] Obter ETH de testnet via faucet.
 - [ ] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado.
 
