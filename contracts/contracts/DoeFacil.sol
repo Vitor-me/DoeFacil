@@ -16,7 +16,7 @@ contract DoeFacil is Ownable, ReentrancyGuard {
         uint256 id;
         address ong;
         string titulo;
-        uint256 meta_arreacadacao;
+        uint256 meta_arrecadacao;
         uint256 total_arrecadado;
         uint256 prazo;
         bool ativa;
