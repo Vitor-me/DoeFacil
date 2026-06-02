@@ -32,7 +32,10 @@ coverage.json
 .coverage_artifacts/
 .coverage_cache/
 .coverage_contracts/
-deployments/        # remova esta linha se quiser versionar endereços de deploy
+# Deploys locais sao descartaveis (ignorados); a Sepolia e versionada para
+# o frontend consumir o endereco+ABI do contrato publicado.
+**/deployments/*
+!**/deployments/sepolia.json
 gas-report.txt
 
 # ----- Front-end React ------------------------------------
