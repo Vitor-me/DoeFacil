@@ -63,7 +63,11 @@ async function main() {
   passo(2, "ONG cria uma campanha [STUB]");
   const meta = ethers.parseEther("10"); // meta de 10 ETH
   const umaSemana = 7 * 24 * 60 * 60;
-  const prazo = (await ethers.provider.getBlock("latest")).timestamp + umaSemana;
+  const blocoAtual = await ethers.provider.getBlock("latest");
+  if (!blocoAtual) {
+    throw new Error("Nao foi possivel obter o bloco mais recente da rede.");
+  }
+  const prazo = blocoAtual.timestamp + umaSemana;
   await enviar(
     `criar_campanha("Agua potavel", ${ethers.formatEther(meta)} ETH, prazo +7d)`,
     doeFacil.connect(ong).criar_campanha("Agua potavel", meta, prazo),
