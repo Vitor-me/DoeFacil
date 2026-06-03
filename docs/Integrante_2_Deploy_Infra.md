@@ -15,11 +15,11 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ---
 
 ### Sprint 2 — Lógica Central do Contrato
-- [ ] Escrever o script de deploy local (rede Hardhat).
-- [ ] Criar fixtures de teste: contas de admin, ONG, doador e fornecedor.
-- [ ] Montar cenários de exemplo para a equipe testar manualmente.
+- [x] Escrever o script de deploy local (rede Hardhat). _(`scripts/deploy.js`, roda na rede em memória e em `localhost`)_
+- [x] Criar fixtures de teste: contas de admin, ONG, doador e fornecedor. _(`test/fixtures.js` via `loadFixture` + smoke test em `test/fixtures.test.js`)_
+- [x] Montar cenários de exemplo para a equipe testar manualmente. _(`scripts/cenario.js`; `npm run cenario` / `cenario:local`)_
 
-**Entrega:** Script de deploy local e dados de teste prontos.
+**Entrega:** ✅ Script de deploy local e dados de teste prontos. As funções do contrato ainda são stubs (lógica da Int. 1), então os passos marcados `[STUB]` no cenário ainda não alteram estado.
 
 ---
 
