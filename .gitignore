@@ -68,3 +68,7 @@ logs/
 *.log
 tmp/
 temp/
+
+# -- Open Spec -----------------------
+
+openspec/

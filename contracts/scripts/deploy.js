@@ -11,6 +11,57 @@ const hre = require("hardhat");
 
 const NOME_CONTRATO = "DoeFacil";
 
+// Redes em memoria/local nao precisam de .env nem de verify no Etherscan.
+const REDES_LOCAIS = ["hardhat", "localhost"];
+
+// Confere, antes de gastar gas, que o ambiente esta pronto para uma rede
+// publica (Sepolia). Falha cedo e com mensagem clara em vez de estourar um
+// erro cru do provider la na frente.
+async function checarPreVoo(deployer) {
+  if (REDES_LOCAIS.includes(hre.network.name)) return;
+
+  const faltando = [];
+  if (!process.env.SEPOLIA_RPC_URL) faltando.push("SEPOLIA_RPC_URL");
+  if (!process.env.PRIVATE_KEY) faltando.push("PRIVATE_KEY");
+  if (faltando.length > 0) {
+    throw new Error(
+      `Variaveis de ambiente faltando para a rede "${hre.network.name}": ` +
+        `${faltando.join(", ")}. Copie .env.example para .env e preencha.`,
+    );
+  }
+
+  const saldo = await hre.ethers.provider.getBalance(deployer.address);
+  if (saldo === 0n) {
+    throw new Error(
+      `A conta ${deployer.address} esta com 0 ETH na rede "${hre.network.name}". ` +
+        "Use um faucet de Sepolia para obter ETH de testnet antes do deploy.",
+    );
+  }
+}
+
+// Verifica o codigo-fonte no Etherscan para que o contrato fique legivel no
+// explorador. Roda so em rede publica e quando ha ETHERSCAN_API_KEY. O
+// DoeFacil nao tem argumentos de construtor, entao nao passamos nada.
+async function verificarNoEtherscan(endereco) {
+  if (REDES_LOCAIS.includes(hre.network.name)) return;
+  if (!process.env.ETHERSCAN_API_KEY) {
+    console.log("ETHERSCAN_API_KEY ausente — pulando a verificacao.");
+    return;
+  }
+
+  try {
+    await hre.run("verify:verify", { address: endereco, constructorArguments: [] });
+    console.log("Contrato verificado no Etherscan.");
+  } catch (erro) {
+    const msg = String(erro.message || erro);
+    if (msg.toLowerCase().includes("already verified")) {
+      console.log("Contrato ja estava verificado no Etherscan.");
+    } else {
+      console.warn("Falha ao verificar no Etherscan (deploy continua valido):", msg);
+    }
+  }
+}
+
 // Salva endereco + ABI da rede atual em deployments/<rede>.json. E o arquivo
 // que o frontend (MetaMask/ethers) usa para saber onde o contrato esta e como
 // chamar suas funcoes. Reescrito a cada deploy.
@@ -38,6 +89,8 @@ async function salvarDeployment(endereco, deployer) {
 
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
+  await checarPreVoo(deployer);
+
   console.log("Fazendo deploy com a conta:", deployer.address);
 
   const saldo = await hre.ethers.provider.getBalance(deployer.address);
@@ -53,6 +106,14 @@ async function main() {
 
   const arquivo = await salvarDeployment(endereco, deployer);
   console.log("Endereco + ABI salvos em:", arquivo);
+
+  // Em rede publica, espera algumas confirmacoes para o bloco se propagar
+  // antes de pedir a verificacao ao Etherscan.
+  if (!REDES_LOCAIS.includes(hre.network.name)) {
+    console.log("Aguardando 5 confirmacoes antes de verificar...");
+    await doeFacil.deploymentTransaction().wait(5);
+    await verificarNoEtherscan(endereco);
+  }
 }
 
 main().catch((error) => {

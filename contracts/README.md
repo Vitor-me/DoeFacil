@@ -36,6 +36,26 @@ Necessárias **apenas** para deploy na testnet. Em local não precisa.
 | `npm run lint` | ESLint + solhint + Prettier (check) |
 | `npm run format` | Formata o código com Prettier |
 
+## Deploy na Sepolia (passo a passo)
+Os passos 1–3 são manuais (contas externas); o passo 4 é um comando.
+
+1. **API key de RPC** — crie uma conta no [Alchemy](https://alchemy.com) (ou Infura),
+   crie um app na rede **Ethereum → Sepolia** e copie a URL HTTPS para `SEPOLIA_RPC_URL`.
+2. **Carteira de testnet** — no MetaMask, crie uma conta **nova** (não use carteira com
+   fundos reais), exporte a chave privada e coloque em `PRIVATE_KEY`.
+3. **ETH de faucet** — pegue Sepolia ETH em um faucet (ex.: [Google Cloud](https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
+   ou o faucet do Alchemy) para o endereço dessa carteira.
+4. **Deploy + verify**:
+   ```bash
+   npm run deploy:sepolia
+   ```
+   O script faz o pré-voo (confere `.env` e saldo), publica o contrato, salva
+   `deployments/sepolia.json` (endereço + ABI, versionado para o frontend) e
+   verifica o código no Etherscan automaticamente (se `ETHERSCAN_API_KEY` estiver setada).
+
+Após o deploy, confirme o endereço no [Sepolia Etherscan](https://sepolia.etherscan.io)
+e faça commit do `deployments/sepolia.json`.
+
 ## Estrutura
 ```
 contracts/
