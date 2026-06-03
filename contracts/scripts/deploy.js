@@ -3,8 +3,8 @@
 //   Local:   npm run deploy:local   (precisa de `npx hardhat node` rodando)
 //   Sepolia: npm run deploy:sepolia  (precisa do .env configurado)
 //
-// OBS: o contrato "DoeFacil" e implementado pela Integrante 1. Enquanto ele
-// nao existir em contracts/, este script vai falhar ao buscar o factory.
+// OBS: o contrato "DoeFacil" (contracts/DoeFacil.sol) e mantido pela Integrante
+// 1. Rode `npm run compile` antes do deploy para gerar os artifacts atualizados.
 const fs = require("fs");
 const path = require("path");
 const hre = require("hardhat");
