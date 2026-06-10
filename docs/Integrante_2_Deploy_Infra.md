@@ -24,12 +24,12 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ---
 
 ### Sprint 3 — Deploy na Testnet
-- [ ] Criar conta e API key no Alchemy ou Infura.
-- [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan já configurados; falta só preencher o `.env`)_
-- [ ] Obter ETH de testnet via faucet.
-- [ ] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado.
+- [x] Criar conta e API key no Alchemy ou Infura. _(app criado no Alchemy; API key ativa)_
+- [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan + pré-voo e verify automático no `deploy.js`)_
+- [x] Obter ETH de testnet via faucet. _(via Google Cloud Faucet)_
+- [x] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado. _(endereço + ABI em `contracts/deployments/sepolia.json`; contrato verificado no Etherscan)_
 
-**Entrega:** Contrato publicado e verificado na testnet Sepolia.
+**Entrega:** ✅ Contrato publicado e verificado na testnet Sepolia. _(endereço registrado em `contracts/deployments/sepolia.json`)_
 
 ---
 

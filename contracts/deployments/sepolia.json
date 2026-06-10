@@ -1,0 +1,349 @@
+{
+  "contrato": "DoeFacil",
+  "rede": "sepolia",
+  "chainId": 11155111,
+  "endereco": "0x6AE994225a10032Efa1901432cF6793b8Fb8b17F",
+  "deployer": "0x03a0ed6D2B25d150fF6451C8C6666DddeA14242B",
+  "publicadoEm": "2026-06-03T22:24:49.475Z",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "titulo",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "meta",
+          "type": "uint256"
+        }
+      ],
+      "name": "campanha_criada",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "campanhaID",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "doador",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "valor",
+          "type": "uint256"
+        }
+      ],
+      "name": "doacao_recebida",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "carteira",
+          "type": "address"
+        }
+      ],
+      "name": "ong_verificada",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campanhaID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_fornecedor",
+          "type": "address"
+        }
+      ],
+      "name": "autorizar_fornecedor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "campanhas",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "ong",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "titulo",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "meta_arrecadacao",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "total_arrecadado",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "prazo",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "ativa",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_titulo",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_meta",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_prazo",
+          "type": "uint256"
+        }
+      ],
+      "name": "criar_campanha",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campanhaID",
+          "type": "uint256"
+        }
+      ],
+      "name": "doar",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "fornecedores_autorizados",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "ongs",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "carteira",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "nome",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "verificada",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campanhaID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_valor",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "_fornecedor",
+          "type": "address"
+        }
+      ],
+      "name": "sacar",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_carteira",
+          "type": "address"
+        }
+      ],
+      "name": "verificar_ong",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}
