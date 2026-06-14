@@ -1,131 +1,120 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import heroImg from './assets/hero.png'
-import { getProvider } from './utils/ethers'
+import AuthorizeSupplierScreen from './components/AuthorizeSupplierScreen'
+import CampaignList from './components/CampaignList'
+import DonationScreen from './components/DonationScreen'
+import WithdrawScreen from './components/WithdrawScreen'
+import { mockCampaigns } from './data/campaigns'
+import { donate } from './utils/donations'
+import { authorizeSupplier, withdrawFunds } from './utils/sprint3'
 import './App.css'
 
-function formatAddress(address) {
-  if (!address) {
-    return ''
+function App() {
+  const [currentScreen, setCurrentScreen] = useState('campaigns')
+  const [selectedCampaign, setSelectedCampaign] = useState(null)
+
+  const handleOpenDonation = (campaign) => {
+    setCurrentScreen('donation')
+    setSelectedCampaign(campaign)
   }
 
-  return `${address.slice(0, 6)}...${address.slice(-4)}`
-}
+  const handleBackToCampaigns = () => {
+    setCurrentScreen('campaigns')
+    setSelectedCampaign(null)
+  }
 
-function App() {
-  const [walletAddress, setWalletAddress] = useState('')
-  const [isConnecting, setIsConnecting] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-
-  useEffect(() => {
-    const provider = getProvider()
-
-    if (!provider || !window.ethereum) {
-      return undefined
+  const handleNavigate = (screen) => {
+    if (screen !== 'donation') {
+      setSelectedCampaign(null)
     }
 
-    const syncConnectedAccount = async () => {
-      try {
-        const accounts = await provider.send('eth_accounts', [])
+    setCurrentScreen(screen)
+  }
 
-        setWalletAddress(accounts[0] ?? '')
-      } catch {
-        setErrorMessage('Nao foi possivel verificar a carteira conectada.')
-      }
-    }
+  const handleSubmitDonation = async ({ campaignId, amountInEth }) => {
+    await donate({
+      campaignId,
+      amountInEth,
+    })
+  }
 
-    const handleAccountsChanged = (accounts) => {
-      setWalletAddress(accounts[0] ?? '')
-      setErrorMessage('')
-    }
+  const handleAuthorizeSupplier = async (address) => {
+    await authorizeSupplier(address)
+  }
 
-    syncConnectedAccount()
-    window.ethereum.on('accountsChanged', handleAccountsChanged)
-
-    return () => {
-      window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
-    }
-  }, [])
-
-  const connectWallet = async () => {
-    const provider = getProvider()
-
-    if (!provider) {
-      setErrorMessage('MetaMask nao encontrada. Instale a extensao para continuar.')
-      return
-    }
-
-    try {
-      setIsConnecting(true)
-      setErrorMessage('')
-
-      const accounts = await provider.send('eth_requestAccounts', [])
-
-      setWalletAddress(accounts[0] ?? '')
-    } catch (error) {
-      console.error(error)
-
-      if (error?.code === 4001) {
-        setErrorMessage('Voce cancelou a solicitacao de conexao.')
-      } else {
-        setErrorMessage('Nao foi possivel conectar a carteira.')
-      }
-    } finally {
-      setIsConnecting(false)
-    }
+  const handleWithdrawFunds = async (amountInEth) => {
+    await withdrawFunds(amountInEth)
   }
 
   return (
     <main className="app-shell">
-      <section className="wallet-card">
-        <div className="hero">
-          <img
-            src={heroImg}
-            className="hero-image"
-            width="170"
-            height="179"
-            alt="Ilustracao da plataforma DoeFacil"
+      <section className="app-panel">
+        <div className="hero-banner">
+          <img src={heroImg} className="hero-image" alt="Ilustracao da plataforma DoeFacil" />
+          <div className="hero-banner__copy">
+            <span className="eyebrow">DoeFacil</span>
+            <p>
+              Frontend das Sprints 2 e 3 com campanhas, doacao, autorizacao de
+              fornecedor e saque.
+            </p>
+          </div>
+        </div>
+
+        <nav className="screen-nav" aria-label="Navegacao principal">
+          <button
+            type="button"
+            className={
+              currentScreen === 'campaigns' || currentScreen === 'donation'
+                ? 'nav-button nav-button--active'
+                : 'nav-button'
+            }
+            onClick={() => handleNavigate('campaigns')}
+          >
+            Campanhas
+          </button>
+          <button
+            type="button"
+            className={
+              currentScreen === 'authorize-supplier'
+                ? 'nav-button nav-button--active'
+                : 'nav-button'
+            }
+            onClick={() => handleNavigate('authorize-supplier')}
+          >
+            Autorizar Fornecedor
+          </button>
+          <button
+            type="button"
+            className={
+              currentScreen === 'withdraw'
+                ? 'nav-button nav-button--active'
+                : 'nav-button'
+            }
+            onClick={() => handleNavigate('withdraw')}
+          >
+            Saque
+          </button>
+        </nav>
+
+        {currentScreen === 'donation' && selectedCampaign ? (
+          <DonationScreen
+            campaign={selectedCampaign}
+            onBack={handleBackToCampaigns}
+            onSubmitDonation={handleSubmitDonation}
           />
-        </div>
+        ) : null}
 
-        <div className="wallet-copy">
-          <span className="eyebrow">DoeFacil</span>
-          <h1>Conecte sua carteira</h1>
-          <p>
-            Use a MetaMask para entrar no frontend e visualizar o endereco da
-            carteira conectada.
-          </p>
-        </div>
+        {currentScreen === 'campaigns' ? (
+          <CampaignList campaigns={mockCampaigns} onDonate={handleOpenDonation} />
+        ) : null}
 
-        <button
-          type="button"
-          className="connect-button"
-          onClick={connectWallet}
-          disabled={isConnecting}
-        >
-          {isConnecting ? 'Conectando...' : 'Conectar MetaMask'}
-        </button>
+        {currentScreen === 'authorize-supplier' ? (
+          <AuthorizeSupplierScreen onSubmitAuthorization={handleAuthorizeSupplier} />
+        ) : null}
 
-        <div className="wallet-status">
-          <span className="status-label">Status</span>
-          {walletAddress ? (
-            <>
-              <strong>Carteira conectada</strong>
-              <code>{walletAddress}</code>
-              <span className="status-hint">
-                Endereco curto: {formatAddress(walletAddress)}
-              </span>
-            </>
-          ) : (
-            <>
-              <strong>Nenhuma carteira conectada</strong>
-              <span className="status-hint">
-                Clique no botao acima para conectar a MetaMask.
-              </span>
-            </>
-          )}
-        </div>
-
-        {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+        {currentScreen === 'withdraw' ? (
+          <WithdrawScreen onSubmitWithdraw={handleWithdrawFunds} />
+        ) : null}
       </section>
     </main>
   )
