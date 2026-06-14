@@ -13,7 +13,7 @@ function DonationScreen({ campaign, onBack, onSubmitDonation }) {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (Number(amountInEth) <= 0) {
+    if (!Number(amountInEth) || Number(amountInEth) <= 0) {
       setFeedbackType('error')
       setFeedbackMessage('Informe um valor maior que zero para realizar a doacao.')
       return
@@ -49,7 +49,7 @@ function DonationScreen({ campaign, onBack, onSubmitDonation }) {
 
       <div className="section-header section-header--left">
         <span className="eyebrow">Doação</span>
-        <h1>{campaign.name}</h1>
+        <h1>{campaign.nome}</h1>
         <p>Meta: {formatEth(campaign.metaEth)}</p>
         <p>Arrecadado: {formatEth(campaign.arrecadadoEth)}</p>
       </div>
@@ -76,7 +76,9 @@ function DonationScreen({ campaign, onBack, onSubmitDonation }) {
       {feedbackMessage ? (
         <p
           className={
-            feedbackType === 'error' ? 'feedback-message feedback-message--error' : 'feedback-message'
+            feedbackType === 'error'
+              ? 'feedback-message feedback-message--error'
+              : 'feedback-message feedback-message--success'
           }
         >
           {feedbackMessage}

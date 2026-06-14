@@ -9,7 +9,7 @@ function WithdrawScreen({ onSubmitWithdraw }) {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (Number(amountInEth) <= 0) {
+    if (!Number(amountInEth) || Number(amountInEth) <= 0) {
       setFeedbackType('error')
       setFeedbackMessage('Informe um valor maior que zero para realizar o saque.')
       return

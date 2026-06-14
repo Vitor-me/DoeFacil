@@ -17,7 +17,7 @@ function AuthorizeSupplierScreen({ onSubmitAuthorization }) {
 
     if (!supplierAddress.trim().startsWith('0x')) {
       setFeedbackType('error')
-      setFeedbackMessage('Endereço de carteira invalidálido.')
+      setFeedbackMessage('Endereço de carteira inválido.')
       return
     }
 
