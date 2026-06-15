@@ -1,0 +1,12 @@
+# Normaliza fim de linha para LF em todo texto versionado.
+# Evita que checkouts Windows (core.autocrlf) gerem CRLF e quebrem o
+# `prettier --check .` da pipeline de lint.
+* text=auto eol=lf
+
+# Binarios: nunca normalizar.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

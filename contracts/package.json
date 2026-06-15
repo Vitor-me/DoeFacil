@@ -9,6 +9,8 @@
     "node": "hardhat node",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "cenario": "hardhat run scripts/cenario.js",
+    "cenario:local": "hardhat run scripts/cenario.js --network localhost",
     "lint": "eslint . && solhint \"contracts/**/*.sol\" --noPrompt && prettier --check .",
     "lint:sol": "solhint \"contracts/**/*.sol\" --noPrompt",
     "format": "prettier --write ."
@@ -20,7 +22,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^10.4.1",
     "globals": "^17.6.0",
-    "hardhat": "^2.28.6",
+    "hardhat": "^2.28.0",
     "prettier": "^3.8.3",
     "prettier-plugin-solidity": "^2.3.1",
     "solhint": "^6.2.1"

@@ -15,21 +15,21 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ---
 
 ### Sprint 2 — Lógica Central do Contrato
-- [ ] Escrever o script de deploy local (rede Hardhat).
-- [ ] Criar fixtures de teste: contas de admin, ONG, doador e fornecedor.
-- [ ] Montar cenários de exemplo para a equipe testar manualmente.
+- [x] Escrever o script de deploy local (rede Hardhat). _(`scripts/deploy.js`, roda na rede em memória e em `localhost`)_
+- [x] Criar fixtures de teste: contas de admin, ONG, doador e fornecedor. _(`test/fixtures.js` via `loadFixture` + smoke test em `test/fixtures.test.js`)_
+- [x] Montar cenários de exemplo para a equipe testar manualmente. _(`scripts/cenario.js`; `npm run cenario` / `cenario:local`)_
 
-**Entrega:** Script de deploy local e dados de teste prontos.
+**Entrega:** ✅ Script de deploy local e dados de teste prontos. As funções do contrato ainda são stubs (lógica da Int. 1), então os passos marcados `[STUB]` no cenário ainda não alteram estado.
 
 ---
 
 ### Sprint 3 — Deploy na Testnet
-- [ ] Criar conta e API key no Alchemy ou Infura.
-- [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan já configurados; falta só preencher o `.env`)_
-- [ ] Obter ETH de testnet via faucet.
-- [ ] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado.
+- [x] Criar conta e API key no Alchemy ou Infura. _(app criado no Alchemy; API key ativa)_
+- [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan + pré-voo e verify automático no `deploy.js`)_
+- [x] Obter ETH de testnet via faucet. _(via Google Cloud Faucet)_
+- [x] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado. _(endereço + ABI em `contracts/deployments/sepolia.json`; contrato verificado no Etherscan)_
 
-**Entrega:** Contrato publicado e verificado na testnet Sepolia.
+**Entrega:** ✅ Contrato publicado e verificado na testnet Sepolia. _(endereço registrado em `contracts/deployments/sepolia.json`)_
 
 ---
 
