@@ -65,6 +65,10 @@ async function verificarNoEtherscan(endereco) {
 // Salva endereco + ABI da rede atual em deployments/<rede>.json. E o arquivo
 // que o frontend (MetaMask/ethers) usa para saber onde o contrato esta e como
 // chamar suas funcoes. Reescrito a cada deploy.
+//
+// Tambem copia o mesmo JSON para frontend/src/contracts/<rede>.json, para o
+// front-end consumir endereco+ABI direto da pasta dele (sem caminho relativo
+// pra fora do projeto frontend).
 async function salvarDeployment(endereco, deployer) {
   const artifact = await hre.artifacts.readArtifact(NOME_CONTRATO);
   const { chainId } = await hre.ethers.provider.getNetwork();
@@ -79,12 +83,17 @@ async function salvarDeployment(endereco, deployer) {
     abi: artifact.abi,
   };
 
-  const dir = path.join(__dirname, "..", "deployments");
-  fs.mkdirSync(dir, { recursive: true });
-  const arquivo = path.join(dir, `${hre.network.name}.json`);
-  fs.writeFileSync(arquivo, `${JSON.stringify(info, null, 2)}\n`);
+  const conteudo = `${JSON.stringify(info, null, 2)}\n`;
+  const arquivos = [
+    path.join(__dirname, "..", "deployments", `${hre.network.name}.json`),
+    path.join(__dirname, "..", "..", "frontend", "src", "contracts", `${hre.network.name}.json`),
+  ];
 
-  return path.relative(process.cwd(), arquivo);
+  return arquivos.map((arquivo) => {
+    fs.mkdirSync(path.dirname(arquivo), { recursive: true });
+    fs.writeFileSync(arquivo, conteudo);
+    return path.relative(process.cwd(), arquivo);
+  });
 }
 
 async function main() {
@@ -104,8 +113,11 @@ async function main() {
   console.log("Contrato DoeFacil publicado em:", endereco);
   console.log("Rede:", hre.network.name);
 
-  const arquivo = await salvarDeployment(endereco, deployer);
-  console.log("Endereco + ABI salvos em:", arquivo);
+  const arquivos = await salvarDeployment(endereco, deployer);
+  console.log("Endereco + ABI salvos em:");
+  for (const arquivo of arquivos) {
+    console.log("  -", arquivo);
+  }
 
   // Em rede publica, espera algumas confirmacoes para o bloco se propagar
   // antes de pedir a verificacao ao Etherscan.
