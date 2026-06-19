@@ -15,11 +15,11 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ---
 
 ### Sprint 2 — Lógica Central do Contrato
-- [x] Escrever o script de deploy local (rede Hardhat). _(`scripts/deploy.js`, roda na rede em memória e em `localhost`)_
+- [x] Escrever o script de deploy local (rede Hardhat). _(`scripts/deploy.js`, roda em memória e em `localhost`; grava endereço+ABI em `contracts/deployments/` e `frontend/src/contracts/`)_
 - [x] Criar fixtures de teste: contas de admin, ONG, doador e fornecedor. _(`test/fixtures.js` via `loadFixture` + smoke test em `test/fixtures.test.js`)_
 - [x] Montar cenários de exemplo para a equipe testar manualmente. _(`scripts/cenario.js`; `npm run cenario` / `cenario:local`)_
 
-**Entrega:** ✅ Script de deploy local e dados de teste prontos. As funções do contrato ainda são stubs (lógica da Int. 1), então os passos marcados `[STUB]` no cenário ainda não alteram estado.
+**Entrega:** ✅ Script de deploy local e dados de teste prontos. _(a lógica do contrato — Int. 1 — já foi implementada, então o cenário roda sobre as funções reais)_
 
 ---
 
@@ -27,16 +27,15 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 - [x] Criar conta e API key no Alchemy ou Infura. _(app criado no Alchemy; API key ativa)_
 - [x] Configurar a rede Sepolia no `hardhat.config`. _(rede + verify Etherscan + pré-voo e verify automático no `deploy.js`)_
 - [x] Obter ETH de testnet via faucet. _(via Google Cloud Faucet)_
-- [x] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado. _(endereço + ABI em `contracts/deployments/sepolia.json`; contrato verificado no Etherscan)_
+- [x] Fazer o deploy do contrato na Sepolia e registrar o endereço publicado. _(re-deploy com a lógica atual em 19/06: `0xf6Ca4554C95a31F58dEB3307e74511D3b48927AD`, verificado no Etherscan; endereço + ABI em `contracts/deployments/sepolia.json` e `frontend/src/contracts/sepolia.json`)_
 
-**Entrega:** ✅ Contrato publicado e verificado na testnet Sepolia. _(endereço registrado em `contracts/deployments/sepolia.json`)_
+**Entrega:** ✅ Contrato publicado e verificado na testnet Sepolia. _(endereço atual `0xf6Ca…27AD`; substituiu o deploy de 03/06 que era do contrato stub)_
 
 ---
 
 ### Sprint 4 — Validação Final
 - [ ] Preparar o roteiro técnico da demo prática (passo a passo das transações).
-- [ ] Validar as transações reais no Etherscan da Sepolia.
+- [ ] Validar as transações reais no Etherscan da Sepolia. _(deploy + verificação já confirmados no Etherscan; falta validar doação/saque, que dependem da integração do frontend)_
 - [ ] Documentar a sua parte (deploy e infraestrutura) para os slides.
-- [ ] Participar do ensaio da apresentação e da divisão das perguntas.
 
 **Entrega:** Roteiro da demonstração pronto e transações verificáveis no explorador.
