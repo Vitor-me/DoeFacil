@@ -18,6 +18,7 @@ contract DoeFacil is Ownable, ReentrancyGuard {
         string titulo;
         uint256 meta_arrecadacao;
         uint256 total_arrecadado;
+        uint256 saldo;
         uint256 prazo;
         bool ativa;
     }
@@ -31,6 +32,7 @@ contract DoeFacil is Ownable, ReentrancyGuard {
     event ong_verificada(address indexed carteira);
     event campanha_criada(uint256 indexed id, string titulo, uint256 meta);
     event doacao_recebida(uint256 indexed campanhaID, address indexed doador, uint256 valor);
+    event saque_realizado(uint256 indexed campanhaID, address indexed fornecedor, uint256 valor);
 
     constructor() Ownable(msg.sender) {}
 
@@ -54,6 +56,7 @@ contract DoeFacil is Ownable, ReentrancyGuard {
             titulo: _titulo,
             meta_arrecadacao: _meta,
             total_arrecadado: 0,
+            saldo: 0,
             prazo: _prazo,
             ativa: true
         });
@@ -69,15 +72,35 @@ contract DoeFacil is Ownable, ReentrancyGuard {
         require(msg.value > 0, "O valor da doacao deve ser maior que zero");
 
         campanha.total_arrecadado += msg.value;
+        campanha.saldo += msg.value;
 
         emit doacao_recebida(_campanhaID, msg.sender, msg.value);
     }
 
     function autorizar_fornecedor(uint256 _campanhaID, address _fornecedor) external {
-        // Lógica será feita na Sprint 3
+        require(campanhas[_campanhaID].ong == msg.sender, "Somente a ONG dona da campanha pode autorizar");
+        require(_fornecedor != address(0), "Endereco de fornecedor invalido");
+
+        fornecedores_autorizados[_campanhaID][_fornecedor] = true;
     }
 
     function sacar(uint256 _campanhaID, uint256 _valor, address payable _fornecedor) external nonReentrant {
-        // Lógica será feita na Sprint 3
+        Campanha storage campanha = campanhas[_campanhaID];
+
+        require(campanha.ong == msg.sender, "Somente a ONG dona pode solicitar o saque");
+        require(fornecedores_autorizados[_campanhaID][_fornecedor], "Fornecedor nao autorizado");
+        require(campanha.saldo >= _valor, "Saldo insuficiente na campanha");
+        require(_valor > 0, "O valor de saque deve ser maior que zero");
+
+        campanha.saldo -= _valor;
+
+        (bool sucesso, ) = _fornecedor.call{value: _valor}("");
+        require(sucesso, "Falha na transferencia de ETH");
+
+        emit saque_realizado(_campanhaID, _fornecedor, _valor);
+    }
+
+    function consultar_saldo(uint256 _campanhaID) external view returns (uint256) {
+        return campanhas[_campanhaID].saldo;
     }
 }
