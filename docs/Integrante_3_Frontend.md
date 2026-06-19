@@ -6,29 +6,29 @@ Responsável pela interface que o usuário usa para doar, acompanhar campanhas e
 ---
 
 ### Sprint 1 — Fundação e Setup
-- [ ] Montar o projeto React.
-- [ ] Instalar e configurar o Ethers.js.
-- [ ] Criar a tela inicial com conexão à carteira MetaMask (botão "Conectar carteira").
+- [x] Montar o projeto React. _(Vite + React em `/frontend`)_
+- [x] Instalar e configurar o Ethers.js. _(dependência instalada; `utils/ethers.js` com `getProvider`)_
+- [ ] Criar a tela inicial com conexão à carteira MetaMask (botão "Conectar carteira"). _(existia, mas o PR #6 removeu a tela de conexão ao trocar para a navegação multi-tela; `getProvider` ficou sem uso)_
 
-**Entrega:** App React conectando à MetaMask.
+**Entrega:** ⚠️ App React montado, mas a tela de conexão MetaMask foi removida na refatoração.
 
 ---
 
 ### Sprint 2 — Telas de Doação
-- [ ] Tela de listagem de campanhas (título, meta, arrecadado, prazo).
-- [ ] Tela de envio de doação em ETH integrada à função `doar` do contrato.
-- [ ] Exibir confirmação da transação ao doador.
+- [x] Tela de listagem de campanhas (título, meta, arrecadado, prazo). _(`CampaignList.jsx` com `data/campaigns.js`; usa dados mock, sem prazo)_
+- [ ] Tela de envio de doação em ETH integrada à função `doar` do contrato. _(UI pronta em `DonationScreen.jsx`, mas `utils/donations.js` é placeholder — só `console.log`, sem chamar o contrato)_
+- [x] Exibir confirmação da transação ao doador. _(mensagem de feedback de sucesso, porém simulada)_
 
-**Entrega:** Usuário consegue ver campanhas e doar pela interface (local).
+**Entrega:** ⚠️ Telas prontas, mas a doação ainda não está integrada ao contrato (mock).
 
 ---
 
 ### Sprint 3 — Telas de Saque e Integração com a Testnet
-- [ ] Tela de autorização de fornecedor (visível para a ONG dona).
-- [ ] Tela de saque integrada à função `sacar`.
-- [ ] Conectar o front-end ao contrato publicado na Sepolia (endereço + ABI).
+- [x] Tela de autorização de fornecedor (visível para a ONG dona). _(`AuthorizeSupplierScreen.jsx`; UI pronta, `utils/sprint3.js` é placeholder)_
+- [x] Tela de saque integrada à função `sacar`. _(`WithdrawScreen.jsx`; UI pronta, mas `withdrawFunds` é placeholder — só `console.log`)_
+- [ ] Conectar o front-end ao contrato publicado na Sepolia (endereço + ABI). _(falta: nenhum import de ABI/endereço; `utils/{donations,sprint3}.js` não usam Ethers.js nem o `sepolia.json`)_
 
-**Entrega:** Front-end completo operando sobre o contrato na testnet.
+**Entrega:** ⚠️ Todas as telas existem, mas nenhuma está conectada ao contrato — integração com a testnet é o trabalho restante.
 
 ---
 
