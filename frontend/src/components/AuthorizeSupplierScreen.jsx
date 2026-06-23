@@ -52,8 +52,8 @@ function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization }) {
         <span className="eyebrow">Sprint 3</span>
         <h1>Autorizar Fornecedor</h1>
         <p>
-          Informe o endereço da carteira para preparar a futura integração com
-          Ethers.js e a rede Sepolia.
+          Escolha a campanha e informe o endereço do fornecedor para autorizá-lo
+          on-chain via MetaMask na rede Sepolia.
         </p>
       </div>
 

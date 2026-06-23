@@ -54,8 +54,8 @@ function WithdrawScreen({ campaigns, onSubmitWithdraw }) {
         <span className="eyebrow">Sprint 3</span>
         <h1>Saque</h1>
         <p>
-          Informe o valor em ETH para preparar a futura integração com
-          Ethers.js e o contrato na rede Sepolia.
+          Escolha a campanha, o valor em ETH e o fornecedor para sacar on-chain
+          via MetaMask na rede Sepolia.
         </p>
       </div>
 
