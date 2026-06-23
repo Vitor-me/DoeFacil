@@ -24,18 +24,20 @@ function DonationScreen({ campaign, onBack, onSubmitDonation }) {
     setFeedbackType('')
 
     try {
-      await onSubmitDonation({
-        campaignId: campaign.id,
+      const result = await onSubmitDonation({
+        onChainId: campaign.onChainId,
         amountInEth,
       })
 
       setFeedbackType('success')
       setFeedbackMessage(
-        'Doação registrada com sucesso. A integração com Ethers.js será conectada nesta etapa futuramente.',
+        `Doação confirmada! Tx: https://sepolia.etherscan.io/tx/${result.hash}`,
       )
-    } catch {
+    } catch (err) {
       setFeedbackType('error')
-      setFeedbackMessage('Não foi possivel processar a doação. Tente novamente.')
+      setFeedbackMessage(
+        err?.shortMessage || err?.message || 'Não foi possivel processar a doação. Tente novamente.',
+      )
     } finally {
       setIsSubmitting(false)
     }

@@ -35,7 +35,37 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 
 ### Sprint 4 — Validação Final
 - [ ] Preparar o roteiro técnico da demo prática (passo a passo das transações).
-- [ ] Validar as transações reais no Etherscan da Sepolia. _(deploy + verificação já confirmados no Etherscan; falta validar doação/saque, que dependem da integração do frontend)_
+- [x] Criar o script de seed de campanhas na testnet. _(na branch `feat/frontend-metamask-vercel`: `scripts/seed.js` + `npm run seed:sepolia`; verifica a deployer como ONG e cria 3 campanhas — idempotente. Executado: campanhas 1/2/3 criadas na Sepolia)_
+- [x] Validar as transações reais no Etherscan da Sepolia. _(deploy, verificação, doação (tx `0x0bbdec…0d45`), autorização de fornecedor e saque todos confirmados na Sepolia)_
 - [ ] Documentar a sua parte (deploy e infraestrutura) para os slides.
 
 **Entrega:** Roteiro da demonstração pronto e transações verificáveis no explorador.
+
+## Deploy do frontend no Vercel
+
+O frontend é um app Vite estático; o endereço e a ABI do contrato já vão
+embutidos no build (de `src/contracts/sepolia.json`), então não há variáveis de
+ambiente a configurar.
+
+### Pré-requisito: semear campanhas
+
+Para que a doação funcione, o contrato precisa ter campanhas. Rode uma vez:
+
+    cd contracts
+    npm run seed:sepolia
+
+(É idempotente: se já houver campanhas, não faz nada.)
+
+### Opção A — Dashboard
+
+1. Importe o repositório em vercel.com.
+2. Em **Root Directory**, selecione `frontend`.
+3. Framework: Vite (detectado). Build: `npm run build`. Output: `dist`.
+4. Deploy.
+
+### Opção B — CLI
+
+    npm i -g vercel
+    cd frontend
+    vercel        # primeiro deploy (responda Root Directory = ./ a partir de frontend)
+    vercel --prod # publica em produção

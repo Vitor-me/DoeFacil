@@ -1,6 +1,7 @@
 export const mockCampaigns = [
   {
     id: 'campanha-1',
+    onChainId: 1,
     nome: 'Cestas Básicas para Famílias',
     descricao: 'Arrecadação para compra e distribuição de cestas básicas.',
     metaEth: 12,
@@ -8,6 +9,7 @@ export const mockCampaigns = [
   },
   {
     id: 'campanha-2',
+    onChainId: 2,
     nome: 'Ajuda para Tratamento Infantil',
     descricao: 'Campanha solidária para apoiar despesas de tratamento médico.',
     metaEth: 20,
@@ -15,6 +17,7 @@ export const mockCampaigns = [
   },
   {
     id: 'campanha-3',
+    onChainId: 3,
     nome: 'Reconstrução de Moradias',
     descricao: 'Apoio financeiro para familias afetadas reconstruirem suas casas.',
     metaEth: 30,
