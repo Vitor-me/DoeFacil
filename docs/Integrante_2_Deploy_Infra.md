@@ -36,7 +36,7 @@ Responsável por configurar o ambiente Hardhat, os scripts de deploy e publicar 
 ### Sprint 4 — Validação Final
 - [ ] Preparar o roteiro técnico da demo prática (passo a passo das transações).
 - [x] Criar o script de seed de campanhas na testnet. _(na branch `feat/frontend-metamask-vercel`: `scripts/seed.js` + `npm run seed:sepolia`; verifica a deployer como ONG e cria 3 campanhas — idempotente. Executado: campanhas 1/2/3 criadas na Sepolia)_
-- [~] Validar as transações reais no Etherscan da Sepolia. _(deploy, verificação e **doação** já confirmados — doação tx `0x0bbdec…0d45`; falta validar autorização/saque)_
+- [x] Validar as transações reais no Etherscan da Sepolia. _(deploy, verificação, doação (tx `0x0bbdec…0d45`), autorização de fornecedor e saque todos confirmados na Sepolia)_
 - [ ] Documentar a sua parte (deploy e infraestrutura) para os slides.
 
 **Entrega:** Roteiro da demonstração pronto e transações verificáveis no explorador.

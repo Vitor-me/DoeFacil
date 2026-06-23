@@ -28,7 +28,7 @@ Responsável pela interface que o usuário usa para doar, acompanhar campanhas e
 - [x] Tela de saque integrada à função `sacar`. _(integrado na mesma branch: `withdrawFunds` chama `sacar(onChainId, valor, fornecedor)`; tela ganhou seletor de campanha e campo de endereço do fornecedor)_
 - [x] Conectar o front-end ao contrato publicado na Sepolia (endereço + ABI). _(`utils/ethers.js#getContract` instancia o contrato com endereço+ABI de `src/contracts/sepolia.json`; `ensureSepolia` garante a rede correta antes de assinar)_
 
-**Entrega:** ✅ Todas as telas conectadas ao contrato na Sepolia via MetaMask (PR #9). _(doação validada on-chain; autorização/saque com integração pronta e validação manual em andamento)_
+**Entrega:** ✅ Todas as telas conectadas ao contrato na Sepolia via MetaMask (PR #9). _(doação, autorização e saque validados manualmente on-chain)_
 
 ---
 
