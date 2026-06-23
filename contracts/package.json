@@ -9,6 +9,7 @@
     "node": "hardhat node",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "seed:sepolia": "hardhat run scripts/seed.js --network sepolia",
     "cenario": "hardhat run scripts/cenario.js",
     "cenario:local": "hardhat run scripts/cenario.js --network localhost",
     "lint": "eslint . && solhint \"contracts/**/*.sol\" --noPrompt && prettier --check .",
