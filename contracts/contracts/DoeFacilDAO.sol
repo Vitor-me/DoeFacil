@@ -108,4 +108,37 @@ contract DoeFacilDAO {
 
         emit Votou(id, msg.sender, apoia, peso);
     }
+
+    function quorumNecessario(uint256 id) public view returns (uint256) {
+        uint256 supplySnapshot = token.getPastTotalSupply(propostas[id].criadaEmBloco);
+        return (supplySnapshot * quorumPercent) / 100;
+    }
+
+    function _aprovada(Proposta storage p) private view returns (bool) {
+        uint256 supplySnapshot = token.getPastTotalSupply(p.criadaEmBloco);
+        uint256 quorum = (supplySnapshot * quorumPercent) / 100;
+        return
+            (p.votosFavor + p.votosContra) >= quorum && p.votosFavor > p.votosContra;
+    }
+
+    function executar(uint256 id) external {
+        Proposta storage p = propostas[id];
+        require(p.id != 0, "Proposta inexistente");
+        require(block.timestamp > p.fim, "Votacao ainda aberta");
+        require(!p.executada, "Proposta ja executada");
+        require(_aprovada(p), "Proposta nao aprovada");
+
+        p.executada = true;
+        doeFacil.verificar_ong(p.ongAlvo);
+
+        emit PropostaExecutada(id, p.ongAlvo);
+    }
+
+    function estado(uint256 id) external view returns (Estado) {
+        Proposta storage p = propostas[id];
+        require(p.id != 0, "Proposta inexistente");
+        if (p.executada) return Estado.Executada;
+        if (block.timestamp <= p.fim) return Estado.Ativa;
+        return _aprovada(p) ? Estado.Aprovada : Estado.Rejeitada;
+    }
 }
