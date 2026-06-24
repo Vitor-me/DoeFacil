@@ -1,10 +1,14 @@
-export async function donate({ campaignId, amountInEth }) {
-  console.log('Placeholder de doacao com Ethers.js', {
-    campaignId,
-    amountInEth,
+import { getContract, parseEther } from './ethers'
+
+export async function donate({ onChainId, amountInEth }) {
+  const contract = await getContract()
+  const tx = await contract.doar(onChainId, {
+    value: parseEther(String(amountInEth)),
   })
+  await tx.wait()
 
   return {
     success: true,
+    hash: tx.hash,
   }
 }

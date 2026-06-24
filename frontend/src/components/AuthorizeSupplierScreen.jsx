@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-function AuthorizeSupplierScreen({ onSubmitAuthorization }) {
+function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization }) {
+  const [onChainId, setOnChainId] = useState(campaigns[0]?.onChainId ?? '')
   const [supplierAddress, setSupplierAddress] = useState('')
   const [feedbackMessage, setFeedbackMessage] = useState('')
   const [feedbackType, setFeedbackType] = useState('')
@@ -26,13 +27,20 @@ function AuthorizeSupplierScreen({ onSubmitAuthorization }) {
     setFeedbackType('')
 
     try {
-      await onSubmitAuthorization(supplierAddress)
+      const result = await onSubmitAuthorization({
+        onChainId: Number(onChainId),
+        fornecedor: supplierAddress.trim(),
+      })
 
       setFeedbackType('success')
-      setFeedbackMessage('Fornecedor enviado para autorização (simulação).')
-    } catch {
+      setFeedbackMessage(
+        `Fornecedor autorizado! Tx: https://sepolia.etherscan.io/tx/${result.hash}`,
+      )
+    } catch (err) {
       setFeedbackType('error')
-      setFeedbackMessage('Não foi possivel autorizar o fornecedor. Tente novamente.')
+      setFeedbackMessage(
+        err?.shortMessage || err?.message || 'Não foi possivel autorizar o fornecedor. Tente novamente.',
+      )
     } finally {
       setIsSubmitting(false)
     }
@@ -44,12 +52,26 @@ function AuthorizeSupplierScreen({ onSubmitAuthorization }) {
         <span className="eyebrow">Sprint 3</span>
         <h1>Autorizar Fornecedor</h1>
         <p>
-          Informe o endereço da carteira para preparar a futura integração com
-          Ethers.js e a rede Sepolia.
+          Escolha a campanha e informe o endereço do fornecedor para autorizá-lo
+          on-chain via MetaMask na rede Sepolia.
         </p>
       </div>
 
       <form className="donation-form" onSubmit={handleSubmit}>
+        <label className="field">
+          <span>Campanha</span>
+          <select
+            value={onChainId}
+            onChange={(event) => setOnChainId(event.target.value)}
+          >
+            {campaigns.map((campaign) => (
+              <option key={campaign.id} value={campaign.onChainId}>
+                {campaign.nome}
+              </option>
+            ))}
+          </select>
+        </label>
+
         <label className="field">
           <span>Endereço da carteira</span>
           <input
