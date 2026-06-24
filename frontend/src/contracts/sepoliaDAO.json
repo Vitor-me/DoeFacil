@@ -1,10 +1,10 @@
 {
   "contrato": "DoeFacilDAO",
   "rede": "sepolia",
-  "chainId": 31337,
-  "endereco": "0x0000000000000000000000000000000000000000",
-  "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-  "publicadoEm": "2026-06-24T20:00:29.012Z",
+  "chainId": 11155111,
+  "endereco": "0xe1C5675951B75B184bf97033E72E622d7EC0a7C0",
+  "deployer": "0x03a0ed6D2B25d150fF6451C8C6666DddeA14242B",
+  "publicadoEm": "2026-06-24T20:40:01.740Z",
   "abi": [
     {
       "inputs": [

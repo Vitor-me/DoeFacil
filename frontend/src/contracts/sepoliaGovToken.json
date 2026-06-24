@@ -1,10 +1,10 @@
 {
   "contrato": "GovToken",
   "rede": "sepolia",
-  "chainId": 31337,
-  "endereco": "0x0000000000000000000000000000000000000000",
-  "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-  "publicadoEm": "2026-06-24T20:00:29.014Z",
+  "chainId": 11155111,
+  "endereco": "0xB0963cDdFaF4E39fe5fFf76212ac32D53814Cd99",
+  "deployer": "0x03a0ed6D2B25d150fF6451C8C6666DddeA14242B",
+  "publicadoEm": "2026-06-24T20:40:01.845Z",
   "abi": [
     {
       "inputs": [],
