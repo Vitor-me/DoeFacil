@@ -3,6 +3,7 @@ import heroImg from './assets/hero.png'
 import AuthorizeSupplierScreen from './components/AuthorizeSupplierScreen'
 import CampaignList from './components/CampaignList'
 import DonationScreen from './components/DonationScreen'
+import GovernanceScreen from './components/GovernanceScreen'
 import WithdrawScreen from './components/WithdrawScreen'
 import { mockCampaigns } from './data/campaigns'
 import { donate } from './utils/donations'
@@ -94,6 +95,17 @@ function App() {
           >
             Saque
           </button>
+          <button
+            type="button"
+            className={
+              currentScreen === 'governance'
+                ? 'nav-button nav-button--active'
+                : 'nav-button'
+            }
+            onClick={() => handleNavigate('governance')}
+          >
+            Governanca
+          </button>
         </nav>
 
         {currentScreen === 'donation' && selectedCampaign ? (
@@ -115,6 +127,7 @@ function App() {
         {currentScreen === 'withdraw' ? (
           <WithdrawScreen onSubmitWithdraw={handleWithdrawFunds} />
         ) : null}
+        {currentScreen === 'governance' ? <GovernanceScreen /> : null}
       </section>
     </main>
   )
