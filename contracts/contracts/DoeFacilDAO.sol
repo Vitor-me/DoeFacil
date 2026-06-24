@@ -79,7 +79,10 @@ contract DoeFacilDAO {
             proponente: msg.sender,
             ongAlvo: ongAlvo,
             descricao: descricao,
-            criadaEmBloco: block.number,
+            // Snapshot no bloco anterior: garante que getPastVotes/
+            // getPastTotalSupply nunca deem FutureLookup, mesmo se lidos no
+            // mesmo bloco da criacao (ex.: estado()/quorumNecessario() pela UI).
+            criadaEmBloco: block.number - 1,
             fim: block.timestamp + votingPeriod,
             votosFavor: 0,
             votosContra: 0,

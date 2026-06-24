@@ -32,4 +32,15 @@ describe("DoeFacilDAO — criarProposta", function () {
       dao.connect(membroA).criarProposta(hre.ethers.ZeroAddress, "ONG invalida"),
     ).to.be.revertedWith("ONG alvo invalida");
   });
+
+  it("estado e quorumNecessario podem ser lidos no mesmo bloco da criacao", async function () {
+    // Regressao: o snapshot e no bloco anterior (block.number - 1), entao
+    // getPastTotalSupply nao reverte com FutureLookup mesmo lendo de imediato.
+    const { dao, membroA, ongAlvo, darPoder } = await loadFixture(deployDaoFixture);
+    await darPoder(membroA, 5);
+    await dao.connect(membroA).criarProposta(ongAlvo.address, "Leitura imediata");
+    expect(await dao.estado(1)).to.equal(0); // Estado.Ativa
+    // quorum = 20% do supply no snapshot (5 DFG) = 1 DFG.
+    expect(await dao.quorumNecessario(1)).to.equal(hre.ethers.parseEther("1"));
+  });
 });
