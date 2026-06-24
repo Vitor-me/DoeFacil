@@ -14,6 +14,8 @@
     "seed:sepolia": "hardhat run scripts/seed.js --network sepolia",
     "cenario": "hardhat run scripts/cenario.js",
     "cenario:local": "hardhat run scripts/cenario.js --network localhost",
+    "cenario:dao": "hardhat run scripts/cenario_dao.js",
+    "cenario:dao:local": "hardhat run scripts/cenario_dao.js --network localhost",
     "lint": "eslint . && solhint \"contracts/**/*.sol\" --noPrompt && prettier --check .",
     "lint:sol": "solhint \"contracts/**/*.sol\" --noPrompt",
     "format": "prettier --write ."
