@@ -216,6 +216,9 @@
 .campaign-card h2 {
   margin: 0;
   line-height: 1.2;
+  /* Reserva 2 linhas para titulos de 1 ou 2 linhas ficarem alinhados entre os
+     cards (Meta/Arrecadado/Doar alinham na mesma altura). */
+  min-height: 2.4em;
 }
 
 .campaign-card__content p:first-of-type {
@@ -271,6 +274,18 @@
     border-color 0.2s ease,
     box-shadow 0.2s ease,
     background 0.2s ease;
+}
+
+/* A lista nativa do dropdown usa fundo do sistema (branco), entao as opcoes
+   precisam de cor propria para ficarem legiveis no tema escuro. */
+.field select option {
+  background-color: #1e2430;
+  color: #f4f6fb;
+}
+
+.field select option:checked {
+  background-color: #f6851b;
+  color: #101623;
 }
 
 .field span {
