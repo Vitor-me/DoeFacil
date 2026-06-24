@@ -89,4 +89,23 @@ contract DoeFacilDAO {
         emit PropostaCriada(id, msg.sender, ongAlvo, propostas[id].fim);
         return id;
     }
+
+    function votar(uint256 id, bool apoia) external {
+        Proposta storage p = propostas[id];
+        require(p.id != 0, "Proposta inexistente");
+        require(block.timestamp <= p.fim, "Votacao encerrada");
+        require(!jaVotou[id][msg.sender], "Ja votou nesta proposta");
+
+        uint256 peso = token.getPastVotes(msg.sender, p.criadaEmBloco);
+        require(peso > 0, "Sem poder de voto no snapshot");
+
+        jaVotou[id][msg.sender] = true;
+        if (apoia) {
+            p.votosFavor += peso;
+        } else {
+            p.votosContra += peso;
+        }
+
+        emit Votou(id, msg.sender, apoia, peso);
+    }
 }
