@@ -6,12 +6,12 @@ Responsável por garantir que o contrato é robusto (especialmente contra reentr
 ---
 
 ### Sprint 1 — Fundação e Setup
-- [ ] Criar o repositório no GitHub.
-- [ ] Escrever o README inicial do projeto.
-- [ ] Adicionar `@denylsonmelo` como colaborador.
-- [ ] Definir o board de tarefas (issues/quadro) para a equipe.
+- [x] Criar o repositório no GitHub. _(repo `Vitor-me/DoeFacil`)_
+- [x] Escrever o README inicial do projeto. _(`README.md` com objetivo, stack e equipe)_
+- [ ] Adicionar `@denylsonmelo` como colaborador. _(não verificável pelo código — conferir nas configurações do repo)_
+- [ ] Definir o board de tarefas (issues/quadro) para a equipe. _(não verificável pelo código — conferir no GitHub Projects/Issues)_
 
-**Entrega:** Repositório criado, acessível ao professor e com tarefas organizadas.
+**Entrega:** ⚠️ Repositório e README criados; confirmar colaborador e board no GitHub.
 
 ---
 
@@ -20,7 +20,7 @@ Responsável por garantir que o contrato é robusto (especialmente contra reentr
 - [ ] Escrever testes para `criarCampanha` (só ONG verificada, meta válida).
 - [ ] Escrever testes para `doar` e validar metas e prazos.
 
-**Entrega:** Suíte de testes cobrindo cadastro, campanha e doação passando.
+**Entrega:** ❌ Pendente. Hoje só existe o smoke test das fixtures (`test/fixtures.test.js`, da Int. 2); não há testes de lógica de negócio.
 
 ---
 
@@ -29,7 +29,7 @@ Responsável por garantir que o contrato é robusto (especialmente contra reentr
 - [ ] Testar saque com saldo insuficiente e fornecedor não autorizado.
 - [ ] Validar que apenas a ONG dona pode autorizar fornecedores e sacar.
 
-**Entrega:** Prova de que o contrato resiste a reentrância e respeita as regras de saque.
+**Entrega:** ❌ Pendente. Nenhum teste de segurança escrito ainda (o contrato usa `nonReentrant` + CEI, mas falta a prova por teste de ataque).
 
 ---
 
