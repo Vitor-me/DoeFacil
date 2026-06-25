@@ -439,6 +439,18 @@
     align-items: stretch;
   }
 
+  /* No mobile os stats viram 2 colunas compactas em vez de cards altos
+     empilhados com espaço vazio. */
+  .wallet-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .wallet-stat {
+    min-height: 0;
+    padding: 16px;
+  }
+
   .section-header p {
     max-width: none;
   }
