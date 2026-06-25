@@ -50,7 +50,6 @@ function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization, account }) 
   return (
     <section className="screen-section">
       <div className="section-header section-header--left">
-        <span className="eyebrow">Sprint 3</span>
         <h1>Autorizar Fornecedor</h1>
         <p>
           Escolha a campanha e informe o endereço do fornecedor para autorizá-lo
