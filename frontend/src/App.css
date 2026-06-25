@@ -14,46 +14,14 @@
   flex: 1;
 }
 
-.hero-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  padding: 4px 0 28px;
-  border-bottom: 1px solid var(--border);
-}
-
-.hero-image {
-  width: 126px;
-  height: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 20px 28px rgba(170, 59, 255, 0.16));
-}
-
-.hero-banner__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-  max-width: 640px;
-}
-
-.hero-banner__copy p {
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
 .wallet-panel {
   display: flex;
   flex-direction: column;
   gap: 22px;
   padding: 28px;
   border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, rgba(246, 133, 27, 0.14), transparent 30%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+  background: var(--brand-soft);
   border: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .wallet-panel__header {
@@ -93,39 +61,6 @@
   line-height: 1.35;
   color: var(--text-h);
   overflow-wrap: anywhere;
-}
-
-.screen-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  width: fit-content;
-}
-
-.nav-button {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 11px 18px;
-  font: inherit;
-  font-weight: 600;
-  color: var(--text-h);
-  background: rgba(255, 255, 255, 0.01);
-  cursor: pointer;
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-
-.nav-button--active {
-  border-color: transparent;
-  color: #101623;
-  background: linear-gradient(135deg, #f6851b, #ffb347);
 }
 
 .screen-section {
@@ -194,7 +129,7 @@
 
 .campaign-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(246, 133, 27, 0.28);
+  border-color: rgba(47, 139, 255, 0.28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 24px 46px rgba(15, 23, 42, 0.1);
@@ -277,8 +212,8 @@
 }
 
 .field select option:checked {
-  background-color: #f6851b;
-  color: #101623;
+  background-color: var(--brand);
+  color: #fff;
 }
 
 .field span {
@@ -316,7 +251,7 @@
 }
 
 .use-wallet-button:hover:not(:disabled) {
-  border-color: rgba(246, 133, 27, 0.35);
+  border-color: rgba(47, 139, 255, 0.35);
   transform: translateY(-2px);
 }
 
@@ -346,7 +281,7 @@
 
 .field input:hover,
 .field select:hover {
-  border-color: rgba(246, 133, 27, 0.35);
+  border-color: rgba(47, 139, 255, 0.35);
 }
 
 .primary-button,
@@ -365,9 +300,9 @@
 
 .primary-button {
   border: none;
-  color: #101623;
-  background: linear-gradient(135deg, #f6851b, #ffb347);
-  box-shadow: 0 12px 24px rgba(246, 133, 27, 0.28);
+  color: #fff;
+  background: var(--brand);
+  box-shadow: 0 10px 22px rgba(47, 139, 255, 0.28);
 }
 
 .secondary-button {
@@ -384,7 +319,8 @@
 }
 
 .primary-button:hover:not(:disabled) {
-  box-shadow: 0 16px 28px rgba(246, 133, 27, 0.34);
+  background: var(--brand-strong);
+  box-shadow: 0 14px 26px rgba(47, 139, 255, 0.34);
 }
 
 .primary-button:disabled,
