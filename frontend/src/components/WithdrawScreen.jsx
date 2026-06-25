@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import WalletAddressInput from './WalletAddressInput'
 
-function WithdrawScreen({ campaigns, onSubmitWithdraw }) {
+function WithdrawScreen({ campaigns, onSubmitWithdraw, account }) {
   const [onChainId, setOnChainId] = useState(campaigns[0]?.onChainId ?? '')
   const [amountInEth, setAmountInEth] = useState('')
   const [fornecedor, setFornecedor] = useState('')
@@ -87,16 +88,13 @@ function WithdrawScreen({ campaigns, onSubmitWithdraw }) {
           />
         </label>
 
-        <label className="field">
-          <span>Endereço do fornecedor</span>
-          <input
-            type="text"
-            value={fornecedor}
-            onChange={(event) => setFornecedor(event.target.value)}
-            placeholder="0x..."
-            required
-          />
-        </label>
+        <WalletAddressInput
+          label="Endereço do fornecedor"
+          value={fornecedor}
+          onValueChange={setFornecedor}
+          account={account}
+          required
+        />
 
         <button type="submit" className="primary-button" disabled={isSubmitting}>
           {isSubmitting ? 'Processando...' : 'Sacar'}

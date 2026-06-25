@@ -319,6 +319,7 @@ function App() {
           <AuthorizeSupplierScreen
             campaigns={mockCampaigns}
             onSubmitAuthorization={handleAuthorizeSupplier}
+            account={wallet.account}
           />
         ) : null}
 
@@ -326,6 +327,7 @@ function App() {
           <WithdrawScreen
             campaigns={mockCampaigns}
             onSubmitWithdraw={handleWithdrawFunds}
+            account={wallet.account}
           />
         ) : null}
 
@@ -335,7 +337,9 @@ function App() {
             onRefresh={loadPublicHistory}
           />
         ) : null}
-        {currentScreen === 'governance' ? <GovernanceScreen /> : null}
+        {currentScreen === 'governance' ? (
+          <GovernanceScreen account={wallet.account} />
+        ) : null}
       </section>
     </main>
   )

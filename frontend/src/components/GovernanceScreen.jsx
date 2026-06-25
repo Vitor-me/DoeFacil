@@ -7,10 +7,11 @@ import {
   meuPoderDeVoto,
   votar,
 } from '../utils/dao'
+import WalletAddressInput from './WalletAddressInput'
 
 const ESTADO_LABEL = ['Ativa', 'Aprovada', 'Rejeitada', 'Executada']
 
-function GovernanceScreen() {
+function GovernanceScreen({ account }) {
   const [propostas, setPropostas] = useState([])
   const [ongAlvo, setOngAlvo] = useState('')
   const [descricao, setDescricao] = useState('')
@@ -90,10 +91,13 @@ function GovernanceScreen() {
       </div>
 
       <form className="donation-form" onSubmit={handleCriar}>
-        <label className="field">
-          <span>Endereco da ONG alvo</span>
-          <input value={ongAlvo} onChange={(e) => setOngAlvo(e.target.value)} placeholder="0x..." required />
-        </label>
+        <WalletAddressInput
+          label="Endereco da ONG alvo"
+          value={ongAlvo}
+          onValueChange={setOngAlvo}
+          account={account}
+          required
+        />
         <label className="field">
           <span>Descricao</span>
           <input value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder="Por que verificar esta ONG?" />
