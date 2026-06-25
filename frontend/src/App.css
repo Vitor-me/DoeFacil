@@ -293,6 +293,49 @@
   color: var(--text-h);
 }
 
+.field__input-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.field__input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.use-wallet-button {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0 16px;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.use-wallet-button:hover:not(:disabled) {
+  border-color: rgba(246, 133, 27, 0.35);
+  transform: translateY(-2px);
+}
+
+.use-wallet-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.use-wallet-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .field input::placeholder {
   color: var(--text);
   opacity: 0.8;
@@ -502,6 +545,10 @@
 
   .campaign-card__content p:first-of-type {
     min-height: 0;
+  }
+
+  .field__input-row {
+    flex-direction: column;
   }
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import WalletAddressInput from './WalletAddressInput'
 
-function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization }) {
+function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization, account }) {
   const [onChainId, setOnChainId] = useState(campaigns[0]?.onChainId ?? '')
   const [supplierAddress, setSupplierAddress] = useState('')
   const [feedbackMessage, setFeedbackMessage] = useState('')
@@ -72,16 +73,13 @@ function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization }) {
           </select>
         </label>
 
-        <label className="field">
-          <span>Endereço da carteira</span>
-          <input
-            type="text"
-            value={supplierAddress}
-            onChange={(event) => setSupplierAddress(event.target.value)}
-            placeholder="0x..."
-            required
-          />
-        </label>
+        <WalletAddressInput
+          label="Endereço da carteira"
+          value={supplierAddress}
+          onValueChange={setSupplierAddress}
+          account={account}
+          required
+        />
 
         <button type="submit" className="primary-button" disabled={isSubmitting}>
           {isSubmitting ? 'Processando...' : 'Autorizar'}

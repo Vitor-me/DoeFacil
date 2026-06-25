@@ -2,9 +2,9 @@
   "contrato": "DoeFacil",
   "rede": "sepolia",
   "chainId": 11155111,
-  "endereco": "0xf6Ca4554C95a31F58dEB3307e74511D3b48927AD",
+  "endereco": "0xd13F3008F1A59eBb69b897633747749c8db09cb3",
   "deployer": "0x03a0ed6D2B25d150fF6451C8C6666DddeA14242B",
-  "publicadoEm": "2026-06-19T21:00:39.464Z",
+  "publicadoEm": "2026-06-25T02:26:26.452Z",
   "abi": [
     {
       "inputs": [],
@@ -105,6 +105,25 @@
         }
       ],
       "name": "doacao_recebida",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "campanhaID",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "fornecedor",
+          "type": "address"
+        }
+      ],
+      "name": "fornecedor_autorizado",
       "type": "event"
     },
     {

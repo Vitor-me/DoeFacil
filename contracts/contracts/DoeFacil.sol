@@ -32,6 +32,7 @@ contract DoeFacil is Ownable, ReentrancyGuard {
     event ong_verificada(address indexed carteira);
     event campanha_criada(uint256 indexed id, string titulo, uint256 meta);
     event doacao_recebida(uint256 indexed campanhaID, address indexed doador, uint256 valor);
+    event fornecedor_autorizado(uint256 indexed campanhaID, address indexed fornecedor);
     event saque_realizado(uint256 indexed campanhaID, address indexed fornecedor, uint256 valor);
 
     constructor() Ownable(msg.sender) {}
@@ -82,6 +83,8 @@ contract DoeFacil is Ownable, ReentrancyGuard {
         require(_fornecedor != address(0), "Endereco de fornecedor invalido");
 
         fornecedores_autorizados[_campanhaID][_fornecedor] = true;
+
+        emit fornecedor_autorizado(_campanhaID, _fornecedor);
     }
 
     function sacar(uint256 _campanhaID, uint256 _valor, address payable _fornecedor) external nonReentrant {
