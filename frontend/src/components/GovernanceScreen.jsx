@@ -81,10 +81,10 @@ function GovernanceScreen({ account }) {
       </div>
 
       <div className="dao-toolbar">
-        <button type="button" className="nav-button" onClick={() => comAcao(delegar)} disabled={carregando}>
+        <button type="button" className="secondary-button" onClick={() => comAcao(delegar)} disabled={carregando}>
           Delegar poder de voto
         </button>
-        <button type="button" className="nav-button" onClick={handleVerPoder} disabled={carregando}>
+        <button type="button" className="secondary-button" onClick={handleVerPoder} disabled={carregando}>
           Ver meu poder de voto
         </button>
         {poder !== null ? <span className="dao-poder">Poder: {poder}</span> : null}
@@ -123,10 +123,10 @@ function GovernanceScreen({ account }) {
             <p>{p.descricao}</p>
             <p>A favor: {p.votosFavor} | Contra: {p.votosContra}</p>
             <div className="dao-card__acoes">
-              <button type="button" className="nav-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: true }))} disabled={carregando || p.estado !== 0}>
+              <button type="button" className="secondary-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: true }))} disabled={carregando || p.estado !== 0}>
                 A favor
               </button>
-              <button type="button" className="nav-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: false }))} disabled={carregando || p.estado !== 0}>
+              <button type="button" className="secondary-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: false }))} disabled={carregando || p.estado !== 0}>
                 Contra
               </button>
               <button type="button" className="primary-button" onClick={() => comAcao(() => executar({ id: p.id }))} disabled={carregando || p.estado !== 1}>
