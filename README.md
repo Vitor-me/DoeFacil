@@ -110,13 +110,7 @@ cd contracts && npm test
 
 ## Equipe
 
-- **João Gabriel Miranda Loiola Araújo** — Smart Contract (Solidity) e testes unitários no Hardhat
-- **Fabricyo Silva Veras dos Santos** — Deploy na testnet, infraestrutura (Alchemy/Infura) e scripts
-- **Pedro Afonso Cavalcante Paz** — Front-end (React) e integração com Ethers.js / MetaMask
-- **Antonio Victor Carvalho** — Testes de segurança, validação de regras de negócio e organização do repositório
-
-## Status
-
-Sprint 4 — Validação final. Contratos publicados e verificados na Sepolia,
-frontend integrado e publicado, suíte de testes (unidade + segurança + DAO)
-passando.
+- **João Gabriel Miranda Loiola Araújo**
+- **Fabricyo Silva Veras dos Santos**
+- **Pedro Afonso Cavalcante Paz**
+- **Antonio Victor Carvalho**
