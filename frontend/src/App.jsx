@@ -4,6 +4,7 @@ import heroImg from './assets/hero.png'
 import AuthorizeSupplierScreen from './components/AuthorizeSupplierScreen'
 import CampaignList from './components/CampaignList'
 import DonationScreen from './components/DonationScreen'
+import GovernanceScreen from './components/GovernanceScreen'
 import PublicHistoryScreen from './components/PublicHistoryScreen'
 import WalletPanel from './components/WalletPanel'
 import WithdrawScreen from './components/WithdrawScreen'
@@ -289,6 +290,17 @@ function App() {
           >
             Histórico Público
           </button>
+          <button
+            type="button"
+            className={
+              currentScreen === 'governance'
+                ? 'nav-button nav-button--active'
+                : 'nav-button'
+            }
+            onClick={() => handleNavigate('governance')}
+          >
+            Governanca
+          </button>
         </nav>
 
         {currentScreen === 'donation' && selectedCampaign ? (
@@ -323,6 +335,7 @@ function App() {
             onRefresh={loadPublicHistory}
           />
         ) : null}
+        {currentScreen === 'governance' ? <GovernanceScreen /> : null}
       </section>
     </main>
   )
