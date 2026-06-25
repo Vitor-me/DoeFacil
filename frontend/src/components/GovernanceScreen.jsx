@@ -79,7 +79,7 @@ function GovernanceScreen({ account }) {
 
   return (
     <section className="screen-section">
-      <div className="section-header">
+      <div className="section-header section-header--left">
         <span className="eyebrow">DAO</span>
         <h1>Governanca</h1>
         <p>

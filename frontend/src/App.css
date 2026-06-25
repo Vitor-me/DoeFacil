@@ -89,6 +89,13 @@
   text-align: left;
 }
 
+/* Em headers alinhados à esquerda, o parágrafo acompanha o título no mesmo
+   eixo esquerdo (sem o auto-centering padrão de .section-header p). A
+   especificidade dupla garante prioridade sobre `.section-header p`. */
+.section-header.section-header--left p {
+  margin: 0;
+}
+
 .section-header h1 {
   margin: 0;
   line-height: 1.1;
