@@ -570,6 +570,45 @@
   margin-left: 8px;
 }
 
+/* Quando conectado, a navbar mostra o endereço da carteira (clicável para
+   reconectar) no lugar do botão de conectar. */
+.navbar__account {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--brand-soft);
+  color: var(--brand-strong);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar__account:hover:not(:disabled) {
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+
+.navbar__account:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
+.navbar__account-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
 .navbar__toggle {
   display: none;
   flex-direction: column;

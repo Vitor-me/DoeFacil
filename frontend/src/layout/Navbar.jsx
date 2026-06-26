@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useWallet } from '../context/WalletContext'
+import { formatWalletAddress } from '../utils/ethers'
 
 const NAV_LINKS = [
   { to: '/', label: 'Início', end: true },
@@ -56,21 +57,35 @@ function Navbar() {
             </NavLink>
           ))}
 
-          <button
-            type="button"
-            className="primary-button navbar__connect"
-            onClick={() => {
-              closeMenu()
-              void connect()
-            }}
-            disabled={isConnectingWallet}
-          >
-            {isConnectingWallet
-              ? 'Conectando...'
-              : wallet.isConnected
-                ? 'Reconectar'
-                : 'Conectar MetaMask'}
-          </button>
+          {wallet.isConnected ? (
+            <button
+              type="button"
+              className="navbar__account"
+              title={`${wallet.account} — clique para reconectar`}
+              onClick={() => {
+                closeMenu()
+                void connect()
+              }}
+              disabled={isConnectingWallet}
+            >
+              <span className="navbar__account-dot" aria-hidden="true" />
+              {isConnectingWallet
+                ? 'Conectando...'
+                : formatWalletAddress(wallet.account)}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="primary-button navbar__connect"
+              onClick={() => {
+                closeMenu()
+                void connect()
+              }}
+              disabled={isConnectingWallet}
+            >
+              {isConnectingWallet ? 'Conectando...' : 'Conectar MetaMask'}
+            </button>
+          )}
         </nav>
       </div>
     </header>

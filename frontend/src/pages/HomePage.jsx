@@ -20,7 +20,7 @@ const STEPS = [
 ]
 
 function HomePage() {
-  const { connect, isConnectingWallet } = useWallet()
+  const { wallet, connect, isConnectingWallet } = useWallet()
 
   return (
     <div className="home">
@@ -36,14 +36,16 @@ function HomePage() {
           <Link to="/campanhas" className="primary-button">
             Ver campanhas
           </Link>
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={() => void connect()}
-            disabled={isConnectingWallet}
-          >
-            {isConnectingWallet ? 'Conectando...' : 'Conectar carteira'}
-          </button>
+          {!wallet.isConnected ? (
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => void connect()}
+              disabled={isConnectingWallet}
+            >
+              {isConnectingWallet ? 'Conectando...' : 'Conectar carteira'}
+            </button>
+          ) : null}
         </div>
       </section>
 

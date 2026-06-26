@@ -5,13 +5,7 @@ import Footer from './Footer'
 import Navbar from './Navbar'
 
 function RootLayout() {
-  const {
-    wallet,
-    connect,
-    isConnectingWallet,
-    isContractConfigured,
-    walletStatusMessage,
-  } = useWallet()
+  const { wallet, isContractConfigured, walletStatusMessage } = useWallet()
 
   return (
     <div className="app-shell">
@@ -20,8 +14,6 @@ function RootLayout() {
       <main className="app-main">
         <WalletPanel
           wallet={wallet}
-          onConnect={connect}
-          isConnecting={isConnectingWallet}
           isContractConfigured={isContractConfigured}
           statusMessage={walletStatusMessage}
         />
