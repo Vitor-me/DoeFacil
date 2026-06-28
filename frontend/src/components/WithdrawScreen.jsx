@@ -52,7 +52,6 @@ function WithdrawScreen({ campaigns, onSubmitWithdraw, account }) {
   return (
     <section className="screen-section">
       <div className="section-header section-header--left">
-        <span className="eyebrow">Sprint 3</span>
         <h1>Saque</h1>
         <p>
           Escolha a campanha, o valor em ETH e o fornecedor para sacar on-chain

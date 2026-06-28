@@ -3,17 +3,21 @@
 // antes da demo. Depois, cada membro precisa chamar delegate(self) na carteira
 // dele (ha um botao "Delegar poder de voto" na tela de Governanca).
 //
-// Uso (PowerShell):
-//   $env:DFG_PARA="0xSEU_ENDERECO"; $env:DFG_QTD="10"; npm run mint:dfg:sepolia
+// Padrao: 1 DFG por membro => poder de voto = 1 para todos (1 membro = 1 voto).
+// Distribua 1 DFG para cada membro para manter a votacao igualitaria.
 //
-// DFG_QTD e opcional (padrao 10).
+// Uso (PowerShell):
+//   $env:DFG_PARA="0xSEU_ENDERECO"; npm run mint:dfg:sepolia
+//   (opcional) $env:DFG_QTD="1"
+//
+// DFG_QTD e opcional (padrao 1).
 const fs = require("fs");
 const path = require("path");
 const hre = require("hardhat");
 
 async function main() {
   const para = process.env.DFG_PARA;
-  const qtd = process.env.DFG_QTD || "10";
+  const qtd = process.env.DFG_QTD || "1";
   if (!para) {
     throw new Error(
       'Defina DFG_PARA com o endereco que recebe os tokens. Ex.: $env:DFG_PARA="0x..."',

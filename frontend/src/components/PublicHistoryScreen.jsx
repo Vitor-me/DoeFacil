@@ -7,7 +7,6 @@ function PublicHistoryScreen({ historyState, onRefresh }) {
     <section className="screen-section">
       <div className="history-header">
         <div className="section-header section-header--left">
-          <span className="eyebrow">Sprint 4</span>
           <h1>Histórico Público</h1>
           <p>
             Doações recebidas, campanhas criadas e saques do contrato serão
