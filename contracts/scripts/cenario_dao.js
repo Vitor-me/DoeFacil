@@ -79,13 +79,14 @@ async function main() {
   );
 
   // --- Passo 1: distribui tokens e delega ---
-  passo(1, "Mint de 10 DFG para cada membro + delegate");
+  // 1 DFG por membro => poder de voto = 1 para todos (1 membro = 1 voto).
+  passo(1, "Mint de 1 DFG para cada membro + delegate");
   for (const [nome, membro] of [
     ["membroA", membroA],
     ["membroB", membroB],
     ["membroC", membroC],
   ]) {
-    await enviar(`mint(${nome}, 10 DFG)`, token.mint(membro.address, ethers.parseEther("10")));
+    await enviar(`mint(${nome}, 1 DFG)`, token.mint(membro.address, ethers.parseEther("1")));
     await enviar(`${nome}.delegate(self)`, token.connect(membro).delegate(membro.address));
   }
   console.log("  supply total:", ethers.formatEther(await token.totalSupply()), "DFG");

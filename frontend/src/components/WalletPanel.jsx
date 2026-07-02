@@ -1,13 +1,7 @@
 import { formatEther } from 'ethers'
 import { formatWalletAddress, getNetworkLabel } from '../utils/ethers'
 
-function WalletPanel({
-  wallet,
-  onConnect,
-  isConnecting,
-  isContractConfigured,
-  statusMessage,
-}) {
+function WalletPanel({ wallet, isContractConfigured, statusMessage }) {
   const hasBalance = Boolean(wallet.balanceInWei)
 
   return (
@@ -17,15 +11,6 @@ function WalletPanel({
           <span className="eyebrow">Blockchain</span>
           <h2>MetaMask e rede Sepolia</h2>
         </div>
-
-        <button
-          type="button"
-          className="primary-button"
-          onClick={onConnect}
-          disabled={isConnecting}
-        >
-          {isConnecting ? 'Conectando...' : wallet.isConnected ? 'Reconectar carteira' : 'Conectar MetaMask'}
-        </button>
       </div>
 
       <div className="wallet-grid">

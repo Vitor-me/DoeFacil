@@ -1,3 +1,4 @@
+import { formatEther } from 'ethers'
 import { useEffect, useState } from 'react'
 import {
   criarProposta,
@@ -10,6 +11,13 @@ import {
 import WalletAddressInput from './WalletAddressInput'
 
 const ESTADO_LABEL = ['Ativa', 'Aprovada', 'Rejeitada', 'Executada']
+
+// Os votos e o poder vêm em unidades brutas do token (18 casas decimais).
+// Converte para a quantidade legível de tokens (ex.: 1000000000000000000 -> 1).
+const formatarVotos = (valorEmWei) => {
+  if (valorEmWei === null || valorEmWei === undefined) return '0'
+  return Number(formatEther(valorEmWei)).toString()
+}
 
 function GovernanceScreen({ account }) {
   const [propostas, setPropostas] = useState([])
@@ -81,13 +89,13 @@ function GovernanceScreen({ account }) {
       </div>
 
       <div className="dao-toolbar">
-        <button type="button" className="nav-button" onClick={() => comAcao(delegar)} disabled={carregando}>
+        <button type="button" className="secondary-button" onClick={() => comAcao(delegar)} disabled={carregando}>
           Delegar poder de voto
         </button>
-        <button type="button" className="nav-button" onClick={handleVerPoder} disabled={carregando}>
+        <button type="button" className="secondary-button" onClick={handleVerPoder} disabled={carregando}>
           Ver meu poder de voto
         </button>
-        {poder !== null ? <span className="dao-poder">Poder: {poder}</span> : null}
+        {poder !== null ? <span className="dao-poder">Poder: {formatarVotos(poder)}</span> : null}
       </div>
 
       <form className="donation-form" onSubmit={handleCriar}>
@@ -121,12 +129,12 @@ function GovernanceScreen({ account }) {
               <span>{p.ongAlvo}</span>
             </div>
             <p>{p.descricao}</p>
-            <p>A favor: {p.votosFavor} | Contra: {p.votosContra}</p>
+            <p>A favor: {formatarVotos(p.votosFavor)} | Contra: {formatarVotos(p.votosContra)}</p>
             <div className="dao-card__acoes">
-              <button type="button" className="nav-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: true }))} disabled={carregando || p.estado !== 0}>
+              <button type="button" className="secondary-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: true }))} disabled={carregando || p.estado !== 0}>
                 A favor
               </button>
-              <button type="button" className="nav-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: false }))} disabled={carregando || p.estado !== 0}>
+              <button type="button" className="secondary-button" onClick={() => comAcao(() => votar({ id: p.id, apoia: false }))} disabled={carregando || p.estado !== 0}>
                 Contra
               </button>
               <button type="button" className="primary-button" onClick={() => comAcao(() => executar({ id: p.id }))} disabled={carregando || p.estado !== 1}>
