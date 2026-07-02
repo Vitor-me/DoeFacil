@@ -10,6 +10,12 @@ import {
 } from '../utils/ethers'
 import { fetchPublicHistory } from '../utils/publicHistory'
 import { authorizeSupplier, withdrawFunds } from '../utils/sprint3'
+import {
+  criarCampanha,
+  fetchCampaigns,
+  fetchRoles,
+  verificarOng,
+} from '../utils/campaigns'
 
 const INITIAL_WALLET_STATE = {
   account: '',
@@ -27,6 +33,18 @@ const INITIAL_HISTORY_STATE = {
   status: 'idle',
 }
 
+const INITIAL_CAMPAIGNS_STATE = {
+  isLoading: false,
+  items: [],
+  message: '',
+  status: 'idle',
+}
+
+const INITIAL_ROLES = {
+  isOwner: false,
+  isVerifiedOng: false,
+}
+
 const WalletContext = createContext(null)
 
 export function WalletProvider({ children }) {
@@ -34,6 +52,8 @@ export function WalletProvider({ children }) {
   const [walletStatusMessage, setWalletStatusMessage] = useState(null)
   const [isConnectingWallet, setIsConnectingWallet] = useState(false)
   const [historyState, setHistoryState] = useState(INITIAL_HISTORY_STATE)
+  const [campaignsState, setCampaignsState] = useState(INITIAL_CAMPAIGNS_STATE)
+  const [roles, setRoles] = useState(INITIAL_ROLES)
 
   const isContractConfigured =
     Boolean(sepolia.endereco) && sepolia.abi.length > 0
@@ -72,21 +92,62 @@ export function WalletProvider({ children }) {
     }
   }
 
+  const loadCampaigns = async () => {
+    setCampaignsState((current) => ({ ...current, isLoading: true }))
+
+    try {
+      const result = await fetchCampaigns()
+      setCampaignsState({
+        isLoading: false,
+        items: result.items,
+        message: result.message,
+        status: result.status,
+      })
+    } catch (error) {
+      setCampaignsState({
+        isLoading: false,
+        items: [],
+        message: getBlockchainErrorMessage(error),
+        status: 'error',
+      })
+    }
+  }
+
+  const loadRoles = async (account) => {
+    try {
+      setRoles(await fetchRoles(account))
+    } catch {
+      setRoles(INITIAL_ROLES)
+    }
+  }
+
   useEffect(() => {
     const initialize = async () => {
-      await syncWallet()
-      await loadPublicHistory()
+      const nextWallet = await getWalletState().catch(() => INITIAL_WALLET_STATE)
+      setWallet(nextWallet)
+      await Promise.all([
+        loadPublicHistory(),
+        loadCampaigns(),
+        loadRoles(nextWallet.account),
+      ])
     }
 
     void initialize()
 
+    const refreshWalletAndRoles = async () => {
+      const nextWallet = await getWalletState().catch(() => INITIAL_WALLET_STATE)
+      setWallet(nextWallet)
+      await loadRoles(nextWallet.account)
+    }
+
     const unsubscribe = subscribeToWalletEvents({
       onAccountsChanged: () => {
-        void syncWallet()
+        void refreshWalletAndRoles()
       },
       onChainChanged: () => {
-        void syncWallet()
+        void refreshWalletAndRoles()
         void loadPublicHistory()
+        void loadCampaigns()
       },
     })
 
@@ -178,17 +239,54 @@ export function WalletProvider({ children }) {
     }
   }
 
+  const handleCreateCampaign = async ({ titulo, metaEth, prazo }) => {
+    try {
+      ensureReadyForTransaction()
+      const result = await criarCampanha({ titulo, metaEth, prazo })
+      setWalletStatusMessage({
+        type: 'success',
+        text: 'Campanha criada com sucesso.',
+      })
+      await loadCampaigns()
+      await loadPublicHistory()
+      return result
+    } catch (error) {
+      throw new Error(getBlockchainErrorMessage(error), { cause: error })
+    }
+  }
+
+  const handleVerifyOng = async ({ carteira }) => {
+    try {
+      ensureReadyForTransaction()
+      const result = await verificarOng({ carteira })
+      setWalletStatusMessage({
+        type: 'success',
+        text: 'ONG verificada com sucesso.',
+      })
+      await loadRoles(wallet.account)
+      await loadPublicHistory()
+      return result
+    } catch (error) {
+      throw new Error(getBlockchainErrorMessage(error), { cause: error })
+    }
+  }
+
   const value = {
     wallet,
     walletStatusMessage,
     isConnectingWallet,
     isContractConfigured,
     historyState,
+    campaignsState,
+    roles,
     connect: handleConnectWallet,
     loadHistory: loadPublicHistory,
+    loadCampaigns,
     donate: handleSubmitDonation,
     authorize: handleAuthorizeSupplier,
     withdraw: handleWithdrawFunds,
+    createCampaign: handleCreateCampaign,
+    verifyOng: handleVerifyOng,
   }
 
   return (

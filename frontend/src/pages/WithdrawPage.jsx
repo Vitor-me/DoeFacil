@@ -1,13 +1,12 @@
 import WithdrawScreen from '../components/WithdrawScreen'
-import { mockCampaigns } from '../data/campaigns'
 import { useWallet } from '../context/WalletContext'
 
 function WithdrawPage() {
-  const { withdraw, wallet } = useWallet()
+  const { withdraw, wallet, campaignsState } = useWallet()
 
   return (
     <WithdrawScreen
-      campaigns={mockCampaigns}
+      campaigns={campaignsState.items}
       onSubmitWithdraw={withdraw}
       account={wallet.account}
     />

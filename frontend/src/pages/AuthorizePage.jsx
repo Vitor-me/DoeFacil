@@ -1,13 +1,12 @@
 import AuthorizeSupplierScreen from '../components/AuthorizeSupplierScreen'
-import { mockCampaigns } from '../data/campaigns'
 import { useWallet } from '../context/WalletContext'
 
 function AuthorizePage() {
-  const { authorize, wallet } = useWallet()
+  const { authorize, wallet, campaignsState } = useWallet()
 
   return (
     <AuthorizeSupplierScreen
-      campaigns={mockCampaigns}
+      campaigns={campaignsState.items}
       onSubmitAuthorization={authorize}
       account={wallet.account}
     />

@@ -151,14 +151,31 @@
   min-height: 2.4em;
 }
 
-.campaign-card__content p:first-of-type {
-  min-height: 72px;
-  color: var(--text);
-}
-
-.campaign-card__content p:not(:first-of-type) {
+.campaign-card__content p {
   color: var(--text-h);
   font-weight: 500;
+  margin: 0;
+}
+
+.campaign-card__progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  overflow: hidden;
+}
+
+.campaign-card__progress span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.campaign-card__meta {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 400;
 }
 
 .donation-form {
@@ -459,10 +476,6 @@
   .secondary-button,
   .primary-button {
     width: 100%;
-  }
-
-  .campaign-card__content p:first-of-type {
-    min-height: 0;
   }
 
   .field__input-row {
