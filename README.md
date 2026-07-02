@@ -21,7 +21,7 @@ por uma **DAO de governança** (votação com tokens DFG).
 
 ## Aplicação no ar
 
-- **Frontend (produção):** https://frontend-nu-snowy-45.vercel.app
+- **Frontend (produção):** https://doe-facil-theta.vercel.app/
   (conecte a MetaMask na rede **Sepolia**)
 
 ## Contratos publicados (Sepolia)
