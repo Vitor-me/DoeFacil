@@ -2,11 +2,15 @@ import { useState } from 'react'
 import WalletAddressInput from './WalletAddressInput'
 
 function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization, account }) {
-  const [onChainId, setOnChainId] = useState(campaigns[0]?.onChainId ?? '')
+  const [onChainId, setOnChainId] = useState('')
   const [supplierAddress, setSupplierAddress] = useState('')
   const [feedbackMessage, setFeedbackMessage] = useState('')
   const [feedbackType, setFeedbackType] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // As campanhas carregam on-chain (async): usa a seleção atual ou, na falta,
+  // a primeira campanha disponível — sem precisar sincronizar via efeito.
+  const selectedId = onChainId || (campaigns[0]?.onChainId ?? '')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -29,7 +33,7 @@ function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization, account }) 
 
     try {
       const result = await onSubmitAuthorization({
-        onChainId: Number(onChainId),
+        onChainId: Number(selectedId),
         fornecedor: supplierAddress.trim(),
       })
 
@@ -61,7 +65,7 @@ function AuthorizeSupplierScreen({ campaigns, onSubmitAuthorization, account }) 
         <label className="field">
           <span>Campanha</span>
           <select
-            value={onChainId}
+            value={selectedId}
             onChange={(event) => setOnChainId(event.target.value)}
           >
             {campaigns.map((campaign) => (

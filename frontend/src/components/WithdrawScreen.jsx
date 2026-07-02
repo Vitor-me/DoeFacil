@@ -2,12 +2,16 @@ import { useState } from 'react'
 import WalletAddressInput from './WalletAddressInput'
 
 function WithdrawScreen({ campaigns, onSubmitWithdraw, account }) {
-  const [onChainId, setOnChainId] = useState(campaigns[0]?.onChainId ?? '')
+  const [onChainId, setOnChainId] = useState('')
   const [amountInEth, setAmountInEth] = useState('')
   const [fornecedor, setFornecedor] = useState('')
   const [feedbackMessage, setFeedbackMessage] = useState('')
   const [feedbackType, setFeedbackType] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // As campanhas carregam on-chain (async): usa a seleção atual ou, na falta,
+  // a primeira campanha disponível — sem precisar sincronizar via efeito.
+  const selectedId = onChainId || (campaigns[0]?.onChainId ?? '')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -30,7 +34,7 @@ function WithdrawScreen({ campaigns, onSubmitWithdraw, account }) {
 
     try {
       const result = await onSubmitWithdraw({
-        onChainId: Number(onChainId),
+        onChainId: Number(selectedId),
         amountInEth,
         fornecedor: fornecedor.trim(),
       })
@@ -63,7 +67,7 @@ function WithdrawScreen({ campaigns, onSubmitWithdraw, account }) {
         <label className="field">
           <span>Campanha</span>
           <select
-            value={onChainId}
+            value={selectedId}
             onChange={(event) => setOnChainId(event.target.value)}
           >
             {campaigns.map((campaign) => (

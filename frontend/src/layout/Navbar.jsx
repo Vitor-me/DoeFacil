@@ -6,6 +6,7 @@ import { formatWalletAddress } from '../utils/ethers'
 const NAV_LINKS = [
   { to: '/', label: 'Início', end: true },
   { to: '/campanhas', label: 'Campanhas', end: false },
+  { to: '/campanhas/nova', label: 'Criar campanha', end: false },
   { to: '/autorizar', label: 'Autorizar', end: false },
   { to: '/saque', label: 'Saque', end: false },
   { to: '/historico', label: 'Histórico', end: false },
@@ -13,8 +14,12 @@ const NAV_LINKS = [
 ]
 
 function Navbar() {
-  const { wallet, connect, isConnectingWallet } = useWallet()
+  const { wallet, connect, isConnectingWallet, roles } = useWallet()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const links = roles.isOwner
+    ? [...NAV_LINKS, { to: '/admin', label: 'Admin', end: false }]
+    : NAV_LINKS
 
   const closeMenu = () => setIsMenuOpen(false)
 
@@ -43,7 +48,7 @@ function Navbar() {
           }
           aria-label="Navegação principal"
         >
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
